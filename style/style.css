@@ -32,6 +32,7 @@ thead {
     padding: 13px;
     border: 1px solid black;
     font-size: 15px;
+    white-space: nowrap;
 }
 
 .table thead th {
@@ -45,16 +46,21 @@ thead {
     background: #324960;
 }
 
-.link{
+.link, .nameRepositories{
     text-decoration: none;
     color: darkslateblue;
     font-size: 14px;
     white-space: nowrap;
+    transition: .3s all ease;
 }
 .link:hover {
     text-decoration: underline;
 }
 
 .nameRepositories{
+    text-decoration: none;
     font-weight: 600;
+    font-size: 16px;
+    color: #324960;
 }
+

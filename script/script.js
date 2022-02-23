@@ -4,10 +4,13 @@ async function getRepositoriesApiGithub() {
     return data;
 }
 
-function createNameRepositories(name) {
+function createNameRepositories(name, id) {
     const nameRepositories = document.createElement('td');
-    nameRepositories.textContent = name;
-    nameRepositories.classList.add('nameRepositories')
+    const linkToIDRepositories = document.createElement('a');
+    nameRepositories.append(linkToIDRepositories);
+    linkToIDRepositories.textContent = name;
+    linkToIDRepositories.href = `/detailsRepositories.html?id=${id}`;
+    linkToIDRepositories.classList.add('nameRepositories');
     return nameRepositories;
 }
 
@@ -34,13 +37,12 @@ function createLinkGithub(html_url) {
     return linkGithub;
 }
 
-function createOutputLine({name, stargazers_count, updated_at, html_url}) {
+function createOutputLine({name, id, stargazers_count, updated_at, html_url}) {
     const outputLines = document.createElement('tr');
-    const repositories = createNameRepositories(name);
+    const repositories = createNameRepositories(name, id);
     const stars = createStarsRepositories(stargazers_count);
     const commit = createLastCommitDate(updated_at);
     const link = createLinkGithub(html_url);
-
     outputLines.append(repositories, stars, commit, link);
     return outputLines;
 }
@@ -48,11 +50,9 @@ function createOutputLine({name, stargazers_count, updated_at, html_url}) {
 async function getAllRepositories() {
     const response = await getRepositoriesApiGithub();
     const tbody = document.querySelector('tbody');
-
     for(let i = 0; i < response.items.length; i++) {
         tbody.append(createOutputLine(response.items[i]))
     }
-
     return response.items;
 }
 getAllRepositories()
